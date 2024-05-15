@@ -1,6 +1,32 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import DefaultLayout from '@/components/layouts/DefaultLayout';
+import { AppPropsCustom } from '@/interfaces/common';
+import '@/styles/globals.css';
+import {
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+import { Toaster } from 'react-hot-toast';
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 1000, // 5s
+    },
+  },
+});
+
+export default function App({ Component, pageProps }: AppPropsCustom) {
+  const Layout = Component.Layout ?? DefaultLayout;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <HydrationBoundary state={pageProps.dehydratedState}>
+        <Layout>
+          <Component {...pageProps} />
+          <Toaster />
+        </Layout>
+      </HydrationBoundary>
+    </QueryClientProvider>
+  );
 }
