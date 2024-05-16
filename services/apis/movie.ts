@@ -3,7 +3,7 @@ import { IParamsMovieByCategory } from '@/interfaces/params';
 import requestAPI from './axiosInstance';
 
 const url = {
-  popular: '/movie/popular',
+  movie: '/movie/',
 };
 
 interface IGetPopularResponse {
@@ -14,13 +14,14 @@ interface IGetPopularResponse {
 }
 
 const movieApi = {
-  getPopular: async (
-    params: IParamsMovieByCategory
-  ): Promise<IGetPopularResponse> => {
-    const { data } = await requestAPI(url.popular, { params }, 'get');
-    console.log(data);
+  getPopular: async (params: IParamsMovieByCategory): Promise<IMovie[]> => {
+    const { data } = await requestAPI(
+      `${url.movie}${params.filterMovies}`,
+      {},
+      'get'
+    );
 
-    return data;
+    return data.results;
   },
 };
 

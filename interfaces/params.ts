@@ -2,7 +2,7 @@ export enum FILTER_MOVIE {
   POPULAR = 'popular',
   NOW_PLAYING = 'now_playing',
   TOP_RATED = 'top_rated',
-  UPCOMING = ' upcoming',
+  UPCOMING = 'upcoming',
 }
 
 export interface IParamsMovieByCategory {

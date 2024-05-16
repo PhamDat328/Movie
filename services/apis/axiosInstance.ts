@@ -23,8 +23,6 @@ const requestAPI = (endpoint: string, body: unknown, method: string) => {
 
   instance.interceptors.response.use(
     (res) => {
-      console.log(res);
-
       return res;
     },
     async (err) => {

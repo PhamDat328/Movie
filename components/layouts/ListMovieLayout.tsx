@@ -2,10 +2,7 @@ import { IMovie } from '@/interfaces/movie';
 import Image from 'next/image';
 import React from 'react';
 import MovieCard from '../Movie/MovieCard';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
-import 'swiper/css';
 const ListMovieLayout = ({
   movies,
   heading,
@@ -14,20 +11,16 @@ const ListMovieLayout = ({
   heading: string;
 }) => {
   return (
-    <div className='mt-10 flex'>
-      <Swiper
-        spaceBetween={100}
-        slidesPerView={4}
-        loop={true}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
-      >
+    <div className='mt-10 max-w-[1280px] mx-auto'>
+      <h2 className='font-bold text-2xl mb-2'>{heading}</h2>
+
+      <div className='flex overflow-x-scroll gap-4 overflow-y-hidden'>
         {movies.map((movie) => (
-          <SwiperSlide className='cursor-pointer' key={movie.id}>
+          <div className='cursor-pointer' key={movie.id}>
             <MovieCard movie={movie} />
-          </SwiperSlide>
+          </div>
         ))}
-      </Swiper>
+      </div>
     </div>
   );
 };

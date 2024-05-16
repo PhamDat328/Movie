@@ -1,42 +1,36 @@
 import { IMovie } from '@/interfaces/movie';
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Typography,
-} from '@material-tailwind/react';
 import Image from 'next/image';
 import React from 'react';
 
 const MovieCard = ({ movie }: { movie: IMovie }) => {
   return (
-    <Card className='mt-6 w-96'>
-      <CardHeader color='blue-gray' className='relative h-56'>
+    <div className='w-[150px] relative'>
+      <div color='blue-gray' className='relative h-56 p-0 m-0 mb-4'>
         <Image
-          width={400}
-          height={400}
+          width={150}
+          height={225}
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt='card-image'
+          className='rounded-lg'
         />
-      </CardHeader>
-      <CardBody className='h-[200px]'>
-        <Typography variant='h5' color='blue-gray' className='mb-2'>
+      </div>
+      <div
+        className={`ring-2 ring-offset-1 absolute bottom-[80px] left-[10px] w-[35px] h-[35px] rounded-full bg-[#113b11] text-sm flex justify-center items-center text-white font-medium ${
+          movie.vote_average > 7
+            ? 'ring-green-700'
+            : movie.vote_average > 5
+              ? 'ring-yellow-500'
+              : 'ring-red-500'
+        }`}
+      >
+        <span>{Math.floor(movie.vote_average * 10) + '%'}</span>
+      </div>
+      <div className='h-[80px]'>
+        <p className='font-semibold h-[50px] overflow-ellipsis'>
           {movie.title}
-        </Typography>
-        <Typography>
-          {movie.overview.length > 150
-            ? `${movie.overview.slice(0, 150)}...`
-            : movie.overview}
-          {movie.overview.length === 0 &&
-            'The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to &quot;Naviglio&quot; where you can enjoy the main night life in Barcelona.'}
-        </Typography>
-      </CardBody>
-      <CardFooter className='pt-0'>
-        <Button>Read More</Button>
-      </CardFooter>
-    </Card>
+        </p>
+      </div>
+    </div>
   );
 };
 
