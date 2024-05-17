@@ -10,7 +10,7 @@ const nextConfig = {
         pathname: 't/p/w500',
       },
     ],
-    domains: ['image.tmdb.org'],
+    domains: ['image.tmdb.org', 'media.themoviedb.org'],
   },
 };
 

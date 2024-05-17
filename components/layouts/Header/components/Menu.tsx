@@ -9,21 +9,32 @@ import {
   MenuItem,
   MenuList,
 } from '@material-tailwind/react';
+import Link from 'next/link';
 
 const Menus = () => {
   return (
     <div className='flex font-semibold items-center gap-8'>
-      <Image src={logo} alt='logo' width={100} height={100} />
+      <Link href='/'>
+        <Image src={logo} alt='logo' width={100} height={100} />
+      </Link>
 
       <Menu allowHover>
         <MenuHandler>
           <p className='cursor-pointer'>Movie</p>
         </MenuHandler>
         <MenuList className='font-body'>
-          <MenuItem>Popular</MenuItem>
-          <MenuItem>Now Playing</MenuItem>
-          <MenuItem>Incoming</MenuItem>
-          <MenuItem>Top Rated</MenuItem>
+          <MenuItem>
+            <Link href='/movie/popular'>Popular</Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href='/movie/upcoming'>Upcoming</Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href='/movie/top-rated'>Top Rated</Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href='/movie/now-playing'>Now Playing</Link>
+          </MenuItem>
         </MenuList>
       </Menu>
       <Menu allowHover>

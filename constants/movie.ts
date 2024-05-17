@@ -1,4 +1,4 @@
-import { GET_POPULAR_PRODUCTS_PARAMS } from './defaultParam/movie';
+import { GET_POPULAR_MOVIES_PARAMS } from './defaultParam/movie';
 
 export const FILTER_KEY = {
   LAYOUT: 'layout',
@@ -14,7 +14,7 @@ export const layoutOptions = [
 ];
 
 export const productTypes = [
-  { name: 'Popular trends', params: GET_POPULAR_PRODUCTS_PARAMS },
+  { name: 'Popular trends', params: GET_POPULAR_MOVIES_PARAMS },
 ];
 
 export const MAX_PRICE = 1000;

@@ -1,3 +1,3 @@
-import useGetPopularMovies from './movies/useGetProductByCategory';
+import useGetMovieByCategory from './movies/useGetMovieByCategory';
 
-export { useGetPopularMovies };
+export { useGetMovieByCategory };

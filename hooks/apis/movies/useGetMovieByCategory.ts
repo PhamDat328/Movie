@@ -2,8 +2,11 @@ import { TYPE_QUERY_KEYS } from '@/constants/typeQueryKeys';
 import { IParamsMovieByCategory } from '@/interfaces/params';
 import movieApi from '@/services/apis/movie';
 import { useQuery } from '@tanstack/react-query';
+import format from '@/utils/format';
+import { useMemo } from 'react';
+import { IMovie } from '@/interfaces/movie';
 
-const useGetPopularMovies = (params: IParamsMovieByCategory) => {
+const useGetMovieByCategory = (params: IParamsMovieByCategory) => {
   let key = '';
   switch (params.filterMovies) {
     case 'popular':
@@ -19,12 +22,23 @@ const useGetPopularMovies = (params: IParamsMovieByCategory) => {
       key = TYPE_QUERY_KEYS.GET_NOW_PLAYING;
       break;
   }
-  const { data, isLoading } = useQuery({
+  const { data, ...rest } = useQuery({
     queryKey: [key, params],
-    queryFn: () => movieApi.getPopular(params),
+    queryFn: () => movieApi.getMovieByCategory(params),
   });
 
-  return { data: data, isLoading };
+  const formatData = useMemo(
+    () =>
+      data?.results.map((item: IMovie) => {
+        return {
+          ...item,
+          slug: `${format.convertTitleToSlug(item.title)}-${item.id}`,
+        };
+      }),
+    [data?.results]
+  );
+
+  return { data: formatData, ...rest };
 };
 
-export default useGetPopularMovies;
+export default useGetMovieByCategory;

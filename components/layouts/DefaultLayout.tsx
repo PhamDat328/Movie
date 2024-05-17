@@ -14,7 +14,7 @@ const DefaultLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className={`${roboto.variable} font-sans`}>
       <Header />
-      <main>{children}</main>
+      <main className=''>{children}</main>
       <br />
       <Footer />
     </div>
