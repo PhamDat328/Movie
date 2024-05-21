@@ -1,13 +1,11 @@
-import { IMovieDetail } from '@/interfaces/movie';
 import MovieDetailHeader from '../Movie/MovieDetailHeader';
 import MovieDetailInfo from '../Movie/MovieDetailInfo';
 
-const MovieDetailLayout = ({ movie }: { movie: IMovieDetail }) => {
+const MovieDetailLayout = () => {
   return (
     <>
-      <MovieDetailHeader movie={movie} />
-
-      <MovieDetailInfo movie={movie} />
+      <MovieDetailHeader />
+      <MovieDetailInfo />
     </>
   );
 };

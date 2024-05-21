@@ -1,12 +1,12 @@
-import { IMovieDetail } from '@/interfaces/movie';
 import MovieMainInfo from './MovieMainInfo';
+import MovieBasicInfo from './MovieBasicInfo';
 
-const MovieDetailInfo = ({ movie }: { movie: IMovieDetail }) => {
+const MovieDetailInfo = () => {
   return (
     <div className='w-[1320px] mx-auto flex mt-6 gap-4'>
-      <MovieMainInfo movie={movie} />
+      <MovieMainInfo />
 
-      <MovieDetailInfo movie={movie} />
+      <MovieBasicInfo />
     </div>
   );
 };

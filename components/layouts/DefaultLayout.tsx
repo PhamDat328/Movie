@@ -3,6 +3,7 @@ import Header from './Header';
 import { Footer } from './Footer';
 import { Roboto } from 'next/font/google';
 import { SearchProvider } from '@/contexts/SearchContext';
+import { MovieProvider } from '@/contexts/MovieContext';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -14,12 +15,14 @@ const roboto = Roboto({
 const DefaultLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className={`${roboto.variable} font-sans`}>
-      <SearchProvider>
-        <Header />
-        <main className=''>{children}</main>
-        <br />
-        <Footer />
-      </SearchProvider>
+      <MovieProvider>
+        <SearchProvider>
+          <Header />
+          <main className=''>{children}</main>
+          <br />
+          <Footer />
+        </SearchProvider>
+      </MovieProvider>
     </div>
   );
 };

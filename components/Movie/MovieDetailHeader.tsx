@@ -1,13 +1,15 @@
 import RoutesConfig from '@/constants/url';
+import MovieContext from '@/contexts/MovieContext';
 import { IMovieDetail } from '@/interfaces/movie';
 import { voteColor } from '@/utils/common';
 import dayjs from 'dayjs';
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaBookmark, FaHeart, FaList, FaPlay } from 'react-icons/fa';
 import { GoDot } from 'react-icons/go';
 
-const MovieDetailHeader = ({ movie }: { movie: IMovieDetail }) => {
+const MovieDetailHeader = () => {
+  const context = useContext(MovieContext);
   const {
     backdrop_path: backdrop,
     genres,
@@ -17,7 +19,7 @@ const MovieDetailHeader = ({ movie }: { movie: IMovieDetail }) => {
     release_date: releaseDate,
     poster_path: poster,
     vote_average: voteAverage,
-  } = movie;
+  }: IMovieDetail = context.movie;
   return (
     <div className='relative w-full h-[550px]'>
       <div
@@ -56,7 +58,7 @@ const MovieDetailHeader = ({ movie }: { movie: IMovieDetail }) => {
           <div className='flex gap-2 text-4xl'>
             <h1 className=' font-semibold tracking-wide'>{title}</h1>
             <p className='text-[#d0d0d0] font-light'>
-              ({releaseDate.split('-')[0]})
+              ({releaseDate?.split('-')[0]})
             </p>
           </div>
 
@@ -64,7 +66,7 @@ const MovieDetailHeader = ({ movie }: { movie: IMovieDetail }) => {
             <p>{dayjs(releaseDate).format('DD/MM/YYYY')}</p>
             <GoDot />
             <div>
-              {genres.map((genre) => {
+              {genres?.map((genre) => {
                 if (genres.indexOf(genre) === genres.length - 1) {
                   return <span key={genre.id}>{genre.name}</span>;
                 }
@@ -78,10 +80,10 @@ const MovieDetailHeader = ({ movie }: { movie: IMovieDetail }) => {
           <div className='mt-6 flex gap-4 items-center'>
             <div
               className={`ring-2 ring-offset-1 w-[60px] h-[60px] rounded-full bg-[#113b11] text-sm flex justify-center items-center text-white font-medium ${voteColor(
-                voteAverage
+                voteAverage ?? 0
               )}`}
             >
-              <span>{Math.floor(voteAverage * 10) + '%'}</span>
+              <span>{Math.floor((voteAverage ?? 0) * 10) + '%'}</span>
             </div>
 
             <div className='font-semibold'>

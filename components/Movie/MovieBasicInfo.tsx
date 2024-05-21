@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Socials from '../Socials';
 import { IMovieDetail } from '@/interfaces/movie';
+import MovieContext from '@/contexts/MovieContext';
 
-const MovieBasicInfo = ({ movie }: { movie: IMovieDetail }) => {
+const MovieBasicInfo = () => {
+  const context = useContext(MovieContext);
   const {
     keywords,
     spoken_languages: spokenLanguages,
     budget,
     revenue,
-  } = movie;
+    status,
+  }: IMovieDetail = context.movie;
   return (
     <div className='w-[20%]'>
       <Socials />
@@ -19,12 +22,12 @@ const MovieBasicInfo = ({ movie }: { movie: IMovieDetail }) => {
         </div>
         <div className='ml-4'>
           <p className='font-semibold'>Original Language</p>
-          <p>{spokenLanguages[0].name}</p>
+          <p>{spokenLanguages && spokenLanguages[0]?.name}</p>
         </div>
         <div className='ml-4'>
           <p className='font-semibold'>Budget</p>
           <p>
-            {budget.toLocaleString('en-US', {
+            {budget?.toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
             })}
@@ -33,7 +36,7 @@ const MovieBasicInfo = ({ movie }: { movie: IMovieDetail }) => {
         <div className='ml-4'>
           <p className='font-semibold'>Revenue</p>
           <p>
-            {revenue.toLocaleString('en-US', {
+            {revenue?.toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
             })}
@@ -44,7 +47,7 @@ const MovieBasicInfo = ({ movie }: { movie: IMovieDetail }) => {
       <div className='mt-6 ml-4'>
         <h4 className='font-medium mb-2 text-xl'>Keywords</h4>
         <div className='flex flex-wrap gap-2'>
-          {keywords.keywords.slice(0, 10).map((keyword) => (
+          {keywords?.keywords?.slice(0, 10).map((keyword) => (
             <div
               key={keyword.id}
               className='bg-[#dddede] transition-all duration-300 hover:bg-[#c2c1c1] cursor-pointer text-xs rounded-md p-2'

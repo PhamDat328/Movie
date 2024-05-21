@@ -16,7 +16,7 @@ const useGetMovieBySearch = (query: string) => {
         results: data?.results.map((item: IMovie) => {
           return {
             ...item,
-            slug: `${format.convertTitleToSlug(item.title)}-${item.id}`,
+            slug: `${format.convertTitleToSlug(item.title || '')}-${item.id}`,
           };
         }),
         total_pages: data.total_pages,

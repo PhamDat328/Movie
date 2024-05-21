@@ -21,10 +21,10 @@ const MovieCard = ({ movie }: { movie: IMovie }) => {
         </div>
         <div
           className={`ring-2 ring-offset-1 absolute bottom-[80px] left-[10px] w-[35px] h-[35px] rounded-full bg-[#113b11] text-sm flex justify-center items-center text-white font-medium ${voteColor(
-            vote
+            vote || 0
           )}`}
         >
-          <span>{Math.floor(vote * 10) + '%'}</span>
+          <span>{Math.floor((vote || 0) * 10) + '%'}</span>
         </div>
         <div className='h-[80px]'>
           <p className='font-semibold h-[50px] overflow-ellipsis'>{title}</p>

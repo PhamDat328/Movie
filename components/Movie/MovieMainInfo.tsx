@@ -1,5 +1,6 @@
 import RoutesConfig from '@/constants/url';
-import { IMovieDetail } from '@/interfaces/movie';
+import MovieContext from '@/contexts/MovieContext';
+import { IImage, IMovieDetail } from '@/interfaces/movie';
 import {
   Button,
   Tab,
@@ -10,20 +11,23 @@ import {
 } from '@material-tailwind/react';
 import dayjs from 'dayjs';
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaStar } from 'react-icons/fa';
 
-const MovieMainInfo = ({ movie }: { movie: IMovieDetail }) => {
+const MovieMainInfo = () => {
   const [activeTab, setActiveTab] = React.useState('poster');
+
+  const context = useContext(MovieContext);
   const {
     reviews,
     credits,
     images,
     belongs_to_collection: belongsToCollection,
     videos,
-  } = movie;
+  }: IMovieDetail = context.movie;
 
-  const { posters, backdrops } = images;
+  const { posters, backdrops } = images || {};
+
   const data = [
     {
       key: 'poster',
@@ -49,7 +53,7 @@ const MovieMainInfo = ({ movie }: { movie: IMovieDetail }) => {
       <h3 className='font-semibold text-2xl tracking-wide'>Top Billed Cast</h3>
 
       <div className='flex relative gap-4 mt-4 overflow-x-scroll '>
-        {credits.cast.slice(0, 10).map((cast, index) => (
+        {credits?.cast?.slice(0, 10).map((cast, index) => (
           <div
             key={cast.id + index.toString()}
             className='flex flex-col items-center shadow-md mb-4 rounded-lg'
@@ -86,9 +90,9 @@ const MovieMainInfo = ({ movie }: { movie: IMovieDetail }) => {
       <div className='flex mt-4 flex-col gap-4'>
         <h3 className='text-xl font-semibold'>
           Reviews{' '}
-          <span className='text-[#6c6c6c]'>{reviews.results.length}</span>
+          <span className='text-[#6c6c6c]'>{reviews?.results?.length}</span>
         </h3>
-        {reviews?.results.slice(0, 1).map((review) => (
+        {reviews?.results?.slice(0, 1).map((review) => (
           <div
             key={review.id}
             className='flex flex-col gap-4 border border-[#bebebe] p-4 rounded-md'
@@ -183,7 +187,7 @@ const MovieMainInfo = ({ movie }: { movie: IMovieDetail }) => {
             key={'video'}
             value={'video'}
           >
-            {videos.results?.slice(0, 10).map((item) => {
+            {videos?.results?.slice(0, 10).map((item) => {
               return (
                 <iframe
                   key={item.key}

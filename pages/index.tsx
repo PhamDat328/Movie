@@ -53,6 +53,7 @@ export const getStaticProps: GetStaticProps = async () => {
     ],
     queryFn: () => movieApi.getMovieByCategory(GET_POPULAR_MOVIES_PARAMS),
   });
+
   const prefetchNowPlayingMovies = queryClient.prefetchQuery({
     queryKey: [
       TYPE_QUERY_KEYS.GET_MOVIE_BY_CATEGORY,
@@ -60,6 +61,7 @@ export const getStaticProps: GetStaticProps = async () => {
     ],
     queryFn: () => movieApi.getMovieByCategory(GET_NOW_PLAYING_MOVIES_PARAMS),
   });
+
   const prefetchTopRatedMovies = queryClient.prefetchQuery({
     queryKey: [
       TYPE_QUERY_KEYS.GET_MOVIE_BY_CATEGORY,
@@ -67,6 +69,7 @@ export const getStaticProps: GetStaticProps = async () => {
     ],
     queryFn: () => movieApi.getMovieByCategory(GET_TOP_RATED_MOVIES_PARAMS),
   });
+
   const prefetchUpcomingMovies = queryClient.prefetchQuery({
     queryKey: [
       TYPE_QUERY_KEYS.GET_MOVIE_BY_CATEGORY,

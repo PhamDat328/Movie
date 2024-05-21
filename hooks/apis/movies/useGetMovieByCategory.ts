@@ -17,7 +17,7 @@ const useGetMovieByCategory = (params: IParamsMovieByCategory) => {
       data?.results.map((item: IMovie) => {
         return {
           ...item,
-          slug: `${format.convertTitleToSlug(item.title)}-${item.id}`,
+          slug: `${format.convertTitleToSlug(item.title || '')}-${item.id}`,
         };
       }),
     [data?.results]
