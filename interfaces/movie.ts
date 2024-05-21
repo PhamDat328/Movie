@@ -147,3 +147,17 @@ export interface IImage {
   vote_count: number;
   width: number;
 }
+
+export interface IGetMovieResponse {
+  page: number;
+  results: IMovie[];
+  total_pages: number;
+  total_results: number;
+}
+
+export enum MovieCategory {
+  NowPlaying = 'now-playing',
+  Popular = 'popular',
+  TopRated = 'top-rated',
+  Upcoming = 'upcoming',
+}

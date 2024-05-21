@@ -1,30 +1,29 @@
-import { IMovie, IMovieDetail } from '@/interfaces/movie';
-import { IParamsMovieByCategory } from '@/interfaces/params';
+import { IGetMovieResponse, IMovieDetail } from '@/interfaces/movie';
+import { IParamsMovie, IParamsMovieByCategory } from '@/interfaces/params';
 import axiosInstant from './axiosInstance';
 
 const url = {
-  movie: '/movie/',
+  discover: '/discover/movie',
+  movie: '/movie',
+  searchMovie: '/search/movie',
 };
-const query = {
+const queryString = {
   append_to_response:
-    '?append_to_response=credits,keywords,reviews,images,videos',
+    'append_to_response=credits,keywords,reviews,images,videos',
 };
-
-interface IGetPopularResponse {
-  page: number;
-  results: IMovie[];
-  total_pages: number;
-  total_results: number;
-}
 
 const movieApi = {
-  getMovieByCategory: (
-    params: IParamsMovieByCategory
-  ): Promise<IGetPopularResponse> =>
-    axiosInstant.get(`${url.movie}${params.filterMovies}`),
+  getMovieByCategory: (params: IParamsMovie): Promise<IGetMovieResponse> =>
+    axiosInstant.get(`${url.movie}/${params.filterMovies}`),
 
   getMovieDetail: (id: string): Promise<IMovieDetail> =>
-    axiosInstant.get(`${url.movie}${id}${query.append_to_response}`),
+    axiosInstant.get(`${url.movie}/${id}?${queryString.append_to_response}`),
+
+  getMovieBySearch: async (query: string): Promise<IGetMovieResponse> =>
+    axiosInstant.get(`${url.searchMovie}?query=${query}`),
+
+  getDiscoverMovie: (params: string): Promise<IGetMovieResponse> =>
+    axiosInstant.get(`${url.discover}?sort_by=${params}`),
 };
 
 export default movieApi;

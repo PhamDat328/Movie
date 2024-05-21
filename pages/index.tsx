@@ -16,7 +16,6 @@ export default function Home() {
   const { data: popularMovies } = useGetMovieByCategory(
     GET_POPULAR_MOVIES_PARAMS
   );
-  // console.log(popularMovies);
 
   const { data: nowPlayingMovies } = useGetMovieByCategory(
     GET_NOW_PLAYING_MOVIES_PARAMS
@@ -48,19 +47,31 @@ export default function Home() {
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
   const prefetchPopularMovies = queryClient.prefetchQuery({
-    queryKey: [TYPE_QUERY_KEYS.GET_POPULAR, GET_POPULAR_MOVIES_PARAMS],
+    queryKey: [
+      TYPE_QUERY_KEYS.GET_MOVIE_BY_CATEGORY,
+      GET_POPULAR_MOVIES_PARAMS,
+    ],
     queryFn: () => movieApi.getMovieByCategory(GET_POPULAR_MOVIES_PARAMS),
   });
   const prefetchNowPlayingMovies = queryClient.prefetchQuery({
-    queryKey: [TYPE_QUERY_KEYS.GET_NOW_PLAYING, GET_NOW_PLAYING_MOVIES_PARAMS],
+    queryKey: [
+      TYPE_QUERY_KEYS.GET_MOVIE_BY_CATEGORY,
+      GET_NOW_PLAYING_MOVIES_PARAMS,
+    ],
     queryFn: () => movieApi.getMovieByCategory(GET_NOW_PLAYING_MOVIES_PARAMS),
   });
   const prefetchTopRatedMovies = queryClient.prefetchQuery({
-    queryKey: [TYPE_QUERY_KEYS.GET_TOP_RATED, GET_TOP_RATED_MOVIES_PARAMS],
+    queryKey: [
+      TYPE_QUERY_KEYS.GET_MOVIE_BY_CATEGORY,
+      GET_TOP_RATED_MOVIES_PARAMS,
+    ],
     queryFn: () => movieApi.getMovieByCategory(GET_TOP_RATED_MOVIES_PARAMS),
   });
   const prefetchUpcomingMovies = queryClient.prefetchQuery({
-    queryKey: [TYPE_QUERY_KEYS.GET_UPCOMING, GET_UPCOMING_MOVIES_PARAMS],
+    queryKey: [
+      TYPE_QUERY_KEYS.GET_MOVIE_BY_CATEGORY,
+      GET_UPCOMING_MOVIES_PARAMS,
+    ],
     queryFn: () => movieApi.getMovieByCategory(GET_UPCOMING_MOVIES_PARAMS),
   });
 

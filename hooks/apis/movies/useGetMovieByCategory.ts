@@ -7,23 +7,8 @@ import { useMemo } from 'react';
 import { IMovie } from '@/interfaces/movie';
 
 const useGetMovieByCategory = (params: IParamsMovieByCategory) => {
-  let key = '';
-  switch (params.filterMovies) {
-    case 'popular':
-      key = TYPE_QUERY_KEYS.GET_POPULAR;
-      break;
-    case 'top_rated':
-      key = TYPE_QUERY_KEYS.GET_TOP_RATED;
-      break;
-    case 'upcoming':
-      key = TYPE_QUERY_KEYS.GET_UPCOMING;
-      break;
-    case 'now_playing':
-      key = TYPE_QUERY_KEYS.GET_NOW_PLAYING;
-      break;
-  }
   const { data, ...rest } = useQuery({
-    queryKey: [key, params],
+    queryKey: [TYPE_QUERY_KEYS.GET_MOVIE_BY_CATEGORY, params],
     queryFn: () => movieApi.getMovieByCategory(params),
   });
 

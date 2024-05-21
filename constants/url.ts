@@ -9,5 +9,6 @@ const RoutesConfig = {
   backdropList: 'https://media.themoviedb.org/t/p/w533_and_h300_face',
   backdropCollection:
     'https://media.themoviedb.org/t/p/w1440_and_h320_multi_faces',
+  movieDetail: '/movie/detail',
 };
 export default RoutesConfig;

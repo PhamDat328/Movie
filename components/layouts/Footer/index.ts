@@ -1,3 +1,3 @@
 import dynamic from 'next/dynamic';
 
-export const Footer = dynamic(import('./Footer'));
+export const Footer = dynamic(() => import('./Footer'));

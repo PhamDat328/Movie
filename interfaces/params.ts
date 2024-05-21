@@ -8,14 +8,14 @@ export enum FILTER_MOVIE {
 export interface IParamsMovieByCategory {
   page?: number;
   take?: number;
-  filterMovies: FILTER_MOVIE;
+  filterMovies?: FILTER_MOVIE;
   category?: string[];
 }
 
 export interface IParamsMovie {
   page?: number;
   take?: number;
-  filterMovies: FILTER_MOVIE;
+  filterMovies?: FILTER_MOVIE;
   categoryId?: string;
   tagId?: string;
   freeText?: string;

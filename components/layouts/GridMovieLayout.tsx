@@ -12,10 +12,10 @@ const GridMovieLayout = ({
 }) => {
   const headingFormatted = heading?.replace('-', ' ');
   return (
-    <div className='mt-10 max-w-[1280px] mx-auto'>
+    <div className='max-w-[1280px] mx-auto'>
       <h2 className='font-bold text-2xl mb-2 capitalize'>{headingFormatted}</h2>
 
-      <div className='grid grid-cols-8 gap-4'>
+      <div className='flex flex-wrap justify-center gap-4'>
         {movies.map((movie) => (
           <div className='cursor-pointer' key={movie.id}>
             <MovieCard movie={movie} />

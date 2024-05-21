@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect } from 'react';
 import Header from './Header';
 import { Footer } from './Footer';
 import { Roboto } from 'next/font/google';
+import { SearchProvider } from '@/contexts/SearchContext';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -13,10 +14,12 @@ const roboto = Roboto({
 const DefaultLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className={`${roboto.variable} font-sans`}>
-      <Header />
-      <main className=''>{children}</main>
-      <br />
-      <Footer />
+      <SearchProvider>
+        <Header />
+        <main className=''>{children}</main>
+        <br />
+        <Footer />
+      </SearchProvider>
     </div>
   );
 };

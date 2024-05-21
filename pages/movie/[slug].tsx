@@ -1,98 +1,80 @@
 import GridMovieLayout from '@/components/layouts/GridMovieLayout';
-import {
-  GET_NOW_PLAYING_MOVIES_PARAMS,
-  GET_POPULAR_MOVIES_PARAMS,
-  GET_TOP_RATED_MOVIES_PARAMS,
-  GET_UPCOMING_MOVIES_PARAMS,
-} from '@/constants/defaultParam/movie';
 import { useGetMovieByCategory } from '@/hooks/apis';
 import { useRouter } from 'next/router';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { TYPE_QUERY_KEYS } from '@/constants/typeQueryKeys';
 import movieApi from '@/services/apis/movie';
+import { getParamsByType } from '@/utils/common';
+import { IMovie, MovieCategory } from '@/interfaces/movie';
+import {
+  Button,
+  Menu,
+  MenuHandler,
+  MenuItem,
+  MenuList,
+} from '@material-tailwind/react';
+import { sortParams } from '@/constants/defaultParam/sort';
+import useGetDiscoverMovie from '@/hooks/apis/movies/useGetDiscoverMovie';
+import MovieDiscoverLayout from '@/components/layouts/MovieDiscoverLayout';
 
-const MovieDetailPage = () => {
+const MovieByCategoryPage = () => {
   const router = useRouter();
   const { slug } = router.query;
 
-  let param: any;
-  switch (slug) {
-    case 'popular':
-      param = GET_POPULAR_MOVIES_PARAMS;
-      break;
-    case 'top-rated':
-      param = GET_TOP_RATED_MOVIES_PARAMS;
-      break;
-    case 'upcoming':
-      param = GET_UPCOMING_MOVIES_PARAMS;
-      break;
-    case 'now-playing':
-      param = GET_NOW_PLAYING_MOVIES_PARAMS;
-      break;
-  }
+  const param = getParamsByType(slug as string);
   const { data: movies } = useGetMovieByCategory(param);
-  //   console.log('slug: ' + slug, 'Id: ' + id);
+
+  const [sortType, setSortType] = React.useState<string>('');
+  const handleSortChange = (param: string) => {
+    setSortType(param);
+  };
+
+  const { data: discoverMovies } = useGetDiscoverMovie(sortType);
+
+  if (sortType !== '' && discoverMovies?.results) {
+    return (
+      <MovieDiscoverLayout handleChangeSortParam={handleSortChange}>
+        <GridMovieLayout
+          heading={slug as string}
+          movies={discoverMovies.results}
+        />
+      </MovieDiscoverLayout>
+    );
+  }
 
   return (
-    <div>
+    <MovieDiscoverLayout handleChangeSortParam={handleSortChange}>
       <GridMovieLayout heading={slug as string} movies={movies || []} />
-    </div>
+    </MovieDiscoverLayout>
   );
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  try {
-    return {
-      paths: [
-        { params: { slug: 'popular' } },
-        { params: { slug: 'top-rated' } },
-        { params: { slug: 'upcoming' } },
-        { params: { slug: 'now-playing' } },
-      ],
-      fallback: 'blocking',
-    };
-  } catch (error) {
-    return {
-      paths: [],
-      fallback: 'blocking',
-    };
-  }
+  const paths = Object.values(MovieCategory).map((category: string) => ({
+    params: { slug: category },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  console.log('movie by category page');
+
   const queryClient = new QueryClient();
   const slug = context.params?.slug;
 
-  let param: any;
-  let key = '';
-  switch (slug) {
-    case 'popular':
-      param = GET_POPULAR_MOVIES_PARAMS;
-      key = TYPE_QUERY_KEYS.GET_POPULAR;
-      break;
-    case 'top-rated':
-      param = GET_TOP_RATED_MOVIES_PARAMS;
-      key = TYPE_QUERY_KEYS.GET_TOP_RATED;
-      break;
-    case 'upcoming':
-      param = GET_UPCOMING_MOVIES_PARAMS;
-      key = TYPE_QUERY_KEYS.GET_UPCOMING;
-      break;
-    case 'now-playing':
-      param = GET_NOW_PLAYING_MOVIES_PARAMS;
-      key = TYPE_QUERY_KEYS.GET_NOW_PLAYING;
-      break;
-  }
+  const param = getParamsByType(slug as string);
 
-  const prefetchMovieByCategory = queryClient.prefetchQuery({
-    queryKey: [key, param],
+  await queryClient.prefetchQuery({
+    queryKey: [TYPE_QUERY_KEYS.GET_MOVIE_BY_CATEGORY, param],
     queryFn: () => movieApi.getMovieByCategory(param),
   });
-
-  await Promise.all([prefetchMovieByCategory]);
 
   return {
     props: {
@@ -102,4 +84,4 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-export default MovieDetailPage;
+export default MovieByCategoryPage;
