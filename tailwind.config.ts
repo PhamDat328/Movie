@@ -8,6 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+<<<<<<< HEAD
+=======
+      fontFamily: {
+        sans: ['var(--font-roboto)', 'sans-serif'],
+        serif: ['Roboto Slab', 'serif'],
+      },
+>>>>>>> 68b52b0a00f3eb95850f55062d045af6410bcc49
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

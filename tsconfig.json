@@ -1,13 +1,25 @@
 {
   "compilerOptions": {
+<<<<<<< HEAD
+=======
+    "target": "es5",
+>>>>>>> 68b52b0a00f3eb95850f55062d045af6410bcc49
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+<<<<<<< HEAD
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
+=======
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+>>>>>>> 68b52b0a00f3eb95850f55062d045af6410bcc49
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
