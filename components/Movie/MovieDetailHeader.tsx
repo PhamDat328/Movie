@@ -40,15 +40,14 @@ const MovieDetailHeader = () => {
         fill
         sizes='(max-width: 576px) 100vw, (max-width: 1440px) 50vw'
         priority
-        style={{
-          objectFit: 'cover',
-        }}
+        objectFit='cover '
       />
       <div className='z-[100] w-[1280px] h-[500px] absolute translate-x-[50%] right-[50%] top-[5%] flex gap-8 text-white'>
         <div className='w-[25%]'>
           <Image
             src={`${RoutesConfig.poster}${poster}`}
             alt='poster'
+            priority
             width={300}
             height={450}
             style={{ borderRadius: '10px' }}
@@ -66,11 +65,10 @@ const MovieDetailHeader = () => {
             <p>{dayjs(releaseDate).format('DD/MM/YYYY')}</p>
             <GoDot />
             <div>
-              {genres?.map((genre) => {
-                if (genres.indexOf(genre) === genres.length - 1) {
-                  return <span key={genre.id}>{genre.name}</span>;
-                }
-                return <span key={genre.id}>{genre.name}, </span>;
+              {genres?.map(({ name, id }) => {
+                if (genres.indexOf({ name, id }) === genres.length - 1)
+                  return <span key={id}>{name}</span>;
+                return <span key={id}>{name}, </span>;
               })}
             </div>
             <GoDot />
@@ -79,9 +77,9 @@ const MovieDetailHeader = () => {
 
           <div className='mt-6 flex gap-4 items-center'>
             <div
-              className={`ring-2 ring-offset-1 w-[60px] h-[60px] rounded-full bg-[#113b11] text-sm flex justify-center items-center text-white font-medium ${voteColor(
-                voteAverage ?? 0
-              )}`}
+              //  ? (voteAverage >= 7.5 ? 'ring-green-500' : voteAverage > 5) : 'ring-[#f9cd3c]'
+              className={`ring-2 ring-offset-1 w-[60px] h-[60px] rounded-full bg-[#113b11] text-sm flex justify-center items-center text-white font-medium 
+              ${voteColor(voteAverage ?? 0)}`}
             >
               <span>{Math.floor((voteAverage ?? 0) * 10) + '%'}</span>
             </div>

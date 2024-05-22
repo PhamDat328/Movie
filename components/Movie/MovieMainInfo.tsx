@@ -1,8 +1,8 @@
+import { TabsData } from '@/constants/movie';
 import RoutesConfig from '@/constants/url';
 import MovieContext from '@/contexts/MovieContext';
-import { IImage, IMovieDetail } from '@/interfaces/movie';
+import { IMovieDetail } from '@/interfaces/movie';
 import {
-  Button,
   Tab,
   TabPanel,
   Tabs,
@@ -18,36 +18,15 @@ const MovieMainInfo = () => {
   const [activeTab, setActiveTab] = React.useState('poster');
 
   const context = useContext(MovieContext);
-  const {
-    reviews,
-    credits,
-    images,
-    belongs_to_collection: belongsToCollection,
-    videos,
-  }: IMovieDetail = context.movie;
+  const { reviews, credits, images, videos }: IMovieDetail = context.movie;
 
   const { posters, backdrops } = images || {};
 
-  const data = [
-    {
-      key: 'poster',
-      label: 'Poster',
-      value: 'poster',
-      url: RoutesConfig.posterList,
-      width: 220,
-      height: 330,
-      desc: posters,
-    },
-    {
-      key: 'backdrop',
-      label: 'Backdrop',
-      value: 'backdrop',
-      width: 533,
-      height: 300,
-      url: RoutesConfig.backdropList,
-      desc: backdrops,
-    },
-  ];
+  TabsData[0].desc = posters || [];
+  TabsData[1].desc = backdrops || [];
+
+  const tabsData = TabsData;
+
   return (
     <div className='w-[80%]'>
       <h3 className='font-semibold text-2xl tracking-wide'>Top Billed Cast</h3>
@@ -140,11 +119,11 @@ const MovieMainInfo = () => {
               'bg-transparent border-b-2 border-gray-900 shadow-none rounded-none',
           }}
         >
-          {data.map(({ label, value }) => (
+          {tabsData.map(({ label, value }) => (
             <Tab
               key={value}
-              value={value}
-              onClick={() => setActiveTab(value)}
+              value={value || ''}
+              onClick={() => setActiveTab(value || '')}
               className={activeTab === value ? 'text-gray-900' : ''}
             >
               {label}
@@ -159,12 +138,13 @@ const MovieMainInfo = () => {
             {'Video'}
           </Tab>
         </TabsHeader>
+
         <TabsBody>
-          {data.map(({ value, desc, url, width, height }) => (
+          {tabsData.map(({ value, desc, url, width, height }) => (
             <TabPanel
               className='flex overflow-x-scroll'
               key={value}
-              value={value}
+              value={value || ''}
             >
               {desc?.slice(0, 10).map((item) => {
                 return (
@@ -179,9 +159,10 @@ const MovieMainInfo = () => {
                     />
                   </div>
                 );
-              })}
+              }) || <p>No data</p>}
             </TabPanel>
           ))}
+
           <TabPanel
             className='flex overflow-x-scroll'
             key={'video'}
@@ -203,35 +184,6 @@ const MovieMainInfo = () => {
           </TabPanel>
         </TabsBody>
       </Tabs>
-
-      <div className='relative rounded-md mt-10'>
-        <Image
-          width={1280}
-          height={400}
-          alt='collection'
-          src={`${RoutesConfig.backdropCollection}${belongsToCollection?.backdrop_path}`}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            height: '100%',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 10,
-            backgroundImage:
-              'linear-gradient(to right, rgba(52.5, 31.5, 31.5, 1) calc((50vw - 170px) - 340px), rgba(52.5, 31.5, 31.5, 0.84) 50%, rgba(52.5, 31.5, 31.5, 0.84) 100%)',
-          }}
-        ></div>
-
-        <div className='left-[32px] absolute z-[200] top-[50%] text-white translate-y-[-50%]'>
-          <p className='font-semibold text-2xl'>
-            Part of the {belongsToCollection?.name}
-          </p>
-          <p>Includes ....</p>
-          <Button>VIEW THE COLLECTION</Button>
-        </div>
-      </div>
     </div>
   );
 };

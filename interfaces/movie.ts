@@ -17,6 +17,12 @@ export interface IMovie {
   videos?: {};
 }
 
+export interface IFilterType {
+  sortBy: string;
+  language: string;
+  genre: string;
+}
+
 export interface IMovieDetail extends IMovie {
   belongs_to_collection?: {
     id?: number;
@@ -160,4 +166,25 @@ export enum MovieCategory {
   Popular = 'popular',
   TopRated = 'top-rated',
   Upcoming = 'upcoming',
+}
+
+export interface ITabsData {
+  key?: string;
+  label?: string;
+  value?: string;
+  url?: string;
+  width?: number;
+  height?: number;
+  desc?: IImage[];
+}
+
+export interface IGenre {
+  id: number;
+  name: string;
+}
+
+export interface ILanguage {
+  iso_639_1: string;
+  english_name: string;
+  name: string;
 }

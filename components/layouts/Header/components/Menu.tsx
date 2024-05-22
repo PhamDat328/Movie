@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import logo from '../../../../assets/images/luxe-black.png';
+import logo from '@/assets/images/luxe-black.png';
 
 import React from 'react';
 import {
@@ -50,7 +50,7 @@ const Menus = () => {
       </Menu>
       <Menu allowHover>
         <MenuHandler>
-          <p className='cursor-pointer'>Movie</p>
+          <p className='cursor-pointer'>People</p>
         </MenuHandler>
         <MenuList className='font-body'>
           <MenuItem>Popular People</MenuItem>
@@ -58,7 +58,7 @@ const Menus = () => {
       </Menu>
       <Menu allowHover>
         <MenuHandler>
-          <p className='cursor-pointer'>Movie</p>
+          <p className='cursor-pointer'>More</p>
         </MenuHandler>
         <MenuList className='font-body'>
           <MenuItem>Discussion</MenuItem>

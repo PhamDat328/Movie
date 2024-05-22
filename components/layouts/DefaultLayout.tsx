@@ -15,14 +15,14 @@ const roboto = Roboto({
 const DefaultLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className={`${roboto.variable} font-sans`}>
-      <MovieProvider>
-        <SearchProvider>
-          <Header />
+      <SearchProvider>
+        <Header />
+        <MovieProvider>
           <main className=''>{children}</main>
-          <br />
-          <Footer />
-        </SearchProvider>
-      </MovieProvider>
+        </MovieProvider>
+        <br />
+        <Footer />
+      </SearchProvider>
     </div>
   );
 };

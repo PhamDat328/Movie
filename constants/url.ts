@@ -1,5 +1,3 @@
-import { avatar } from '@material-tailwind/react';
-
 const RoutesConfig = {
   poster: 'https://image.tmdb.org/t/p/w500',
   backdrop: 'https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces',

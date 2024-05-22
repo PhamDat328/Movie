@@ -11,7 +11,7 @@ const Banner = () => {
         src={BannerImage}
         alt='banner'
         priority
-        style={{ objectFit: 'cover' }}
+        objectFit='cover'
         fill
         sizes='100vw'
         className='brightness-[0.6]'

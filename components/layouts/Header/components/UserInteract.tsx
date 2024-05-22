@@ -31,7 +31,6 @@ const UserInteract = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(searchVal);
     router.push(`/search?query=${searchVal}`);
     handleSearchVal('');
     handleClose();
@@ -49,7 +48,7 @@ const UserInteract = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutSide);
     };
-  }, [formRef]);
+  }, [formRef, handleClose]);
 
   return (
     <div className='flex items-center gap-8'>
@@ -98,8 +97,8 @@ const UserInteract = () => {
           </MenuHandler>
           <MenuList className='flex flex-col gap-2 font-body'>
             <MenuItem className='flex items-center gap-4 py-2 pl-2 pr-8'>
-              <div className='w-[38px] h-[38px] rounded-full'>
-                <Image alt='paypal' src={avatar} />
+              <div className='w-[38px] h-[38px] relative rounded-full'>
+                <Image alt='paypal' src={avatar} fill sizes='50vw' />
               </div>
               <div className='flex flex-col gap-1'>
                 <Typography
@@ -115,8 +114,8 @@ const UserInteract = () => {
               </div>
             </MenuItem>
             <MenuItem className='flex items-center gap-4 py-2 pl-2 pr-8'>
-              <div className='w-[38px] h-[38px] rounded-full'>
-                <Image alt='paypal' src={avatar} />
+              <div className='w-[38px] h-[38px] relative rounded-full'>
+                <Image alt='paypal' src={avatar} sizes='50vw' fill />
               </div>
               <div className='flex flex-col gap-1'>
                 <Typography
@@ -132,8 +131,8 @@ const UserInteract = () => {
               </div>
             </MenuItem>
             <MenuItem className='flex items-center gap-4 py-2 pl-2 pr-8'>
-              <div className='w-[38px] h-[38px] rounded-full'>
-                <Image alt='paypal' src={avatar} />
+              <div className='w-[38px] h-[38px] relative rounded-full'>
+                <Image alt='paypal' src={avatar} sizes='50vw' fill />
               </div>
               <div className='flex flex-col gap-1'>
                 <Typography
@@ -153,8 +152,16 @@ const UserInteract = () => {
       </Badge>
 
       <Menu>
-        <MenuHandler className='cursor-pointer w-[38px] h-[38px] rounded-full'>
-          <Image alt='tania andrew' src={avatar} />
+        <MenuHandler>
+          <div className='cursor-pointer relative w-[38px] h-[38px] rounded-full'>
+            <Image
+              alt='tania andrew'
+              fill
+              src={avatar}
+              sizes='100vw'
+              objectFit='cover'
+            />
+          </div>
         </MenuHandler>
         <MenuList className='font-body'>
           <MenuItem className='flex items-center gap-2'>

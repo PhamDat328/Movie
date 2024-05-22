@@ -1,9 +1,11 @@
+import { ITabsData } from '@/interfaces/movie';
 import {
   GET_NOW_PLAYING_MOVIES_PARAMS,
   GET_POPULAR_MOVIES_PARAMS,
   GET_TOP_RATED_MOVIES_PARAMS,
   GET_UPCOMING_MOVIES_PARAMS,
 } from './defaultParam/movie';
+import RoutesConfig from './url';
 
 export const FILTER_KEY = {
   LAYOUT: 'layout',
@@ -41,5 +43,26 @@ export const PARAMS_BY_CATEGORY = [
   {
     category: 'now-playing',
     params: GET_NOW_PLAYING_MOVIES_PARAMS,
+  },
+];
+
+export const TabsData: ITabsData[] = [
+  {
+    key: 'poster',
+    label: 'Poster',
+    value: 'poster',
+    url: RoutesConfig.posterList,
+    width: 220,
+    height: 330,
+    desc: [],
+  },
+  {
+    key: 'backdrop',
+    label: 'Backdrop',
+    value: 'backdrop',
+    width: 533,
+    height: 300,
+    url: RoutesConfig.backdropList,
+    desc: [],
   },
 ];

@@ -7,7 +7,7 @@ export const getParamsByType = (slug: string) => {
 };
 
 export const voteColor = (vote: number) => {
-  if (vote > 7) return 'ring-green-700';
+  if (vote > 7) return 'ring-[#44ff00]';
   if (vote > 5) return 'ring-yellow-700';
   return 'ring-red-700';
 };

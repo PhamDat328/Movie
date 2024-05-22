@@ -1,26 +1,26 @@
-import { IMovie } from '@/interfaces/movie';
+import { IGetMovieResponse, IMovie } from '@/interfaces/movie';
 
 import React from 'react';
-import MovieCard from '../Movie/MovieCard';
+import MovieCard from '@/components/Movie/MovieCard';
 
-const GridMovieLayout = ({
-  movies,
-  heading,
-}: {
-  movies: IMovie[];
+type Props = {
+  pages: IGetMovieResponse[] | [];
   heading: string;
-}) => {
+};
+
+const GridMovieLayout = ({ pages, heading }: Props) => {
   const headingFormatted = heading?.replace('-', ' ');
   return (
     <div className='max-w-[1280px] mx-auto'>
       <h2 className='font-bold text-2xl mb-2 capitalize'>{headingFormatted}</h2>
-
-      <div className='flex flex-wrap justify-center gap-4'>
-        {movies.map((movie) => (
-          <div className='cursor-pointer' key={movie.id}>
-            <MovieCard movie={movie} />
-          </div>
-        ))}
+      <div className='flex flex-wrap gap-4 justify-center'>
+        {pages.map((page) =>
+          page.results.map((movie) => (
+            <div className='cursor-pointer mb-4' key={movie.id}>
+              <MovieCard movie={movie} />
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

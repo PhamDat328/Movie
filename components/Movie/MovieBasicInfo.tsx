@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Socials from '../Socials';
+import Socials from '@/components/Socials';
 import { IMovieDetail } from '@/interfaces/movie';
 import MovieContext from '@/contexts/MovieContext';
 

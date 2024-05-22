@@ -1,87 +1,113 @@
 import GridMovieLayout from '@/components/layouts/GridMovieLayout';
 import { useGetMovieByCategory } from '@/hooks/apis';
 import { useRouter } from 'next/router';
-
-import React, { useEffect } from 'react';
-import { GetStaticPaths, GetStaticProps } from 'next';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { TYPE_QUERY_KEYS } from '@/constants/typeQueryKeys';
 import movieApi from '@/services/apis/movie';
 import { getParamsByType } from '@/utils/common';
-import { IMovie, MovieCategory } from '@/interfaces/movie';
-import {
-  Button,
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
-} from '@material-tailwind/react';
-import { sortParams } from '@/constants/defaultParam/sort';
 import useGetDiscoverMovie from '@/hooks/apis/movies/useGetDiscoverMovie';
 import MovieDiscoverLayout from '@/components/layouts/MovieDiscoverLayout';
+import { Button } from '@material-tailwind/react';
+import { useEffect } from 'react';
+import { IGetMovieResponse } from '@/interfaces/movie';
+import { useInView } from 'react-intersection-observer';
 
-const MovieByCategoryPage = () => {
+const MovieDetailPage = () => {
+  const { inView, ref } = useInView();
   const router = useRouter();
-  const { slug } = router.query;
+  const { slug, sort_by, with_original_language, with_genres } = router.query;
 
   const param = getParamsByType(slug as string);
-  const { data: movies } = useGetMovieByCategory(param);
 
-  const [sortType, setSortType] = React.useState<string>('');
-  const handleSortChange = (param: string) => {
-    setSortType(param);
-  };
+  const {
+    data: moviesByCategory,
+    fetchNextPage: fetchNextCategory,
+    isFetchingNextPage: isFetchCateMovie,
+  } = useGetMovieByCategory(param);
 
-  const { data: discoverMovies } = useGetDiscoverMovie(sortType);
+  const {
+    data: moviesDiscover,
+    fetchNextPage: fetchNextDiscover,
+    isFetchingNextPage: isFetchDiscoverMovie,
+  } = useGetDiscoverMovie({
+    sortBy: sort_by as string,
+    language: with_original_language as string,
+    genre: with_genres as string,
+  });
 
-  if (sortType !== '' && discoverMovies?.results) {
-    return (
-      <MovieDiscoverLayout handleChangeSortParam={handleSortChange}>
-        <GridMovieLayout
-          heading={slug as string}
-          movies={discoverMovies.results}
-        />
-      </MovieDiscoverLayout>
-    );
-  }
+  useEffect(() => {
+    if (inView) {
+      if (sort_by || with_original_language || with_genres) fetchNextDiscover();
+      else fetchNextCategory();
+    }
+  }, [
+    inView,
+    fetchNextCategory,
+    fetchNextDiscover,
+    sort_by,
+    with_original_language,
+    with_genres,
+  ]);
+
+  let discoverMovies: IGetMovieResponse[] = [];
+
+  if (sort_by || with_original_language || with_genres)
+    discoverMovies = moviesDiscover || [];
+  else discoverMovies = moviesByCategory || [];
 
   return (
-    <MovieDiscoverLayout handleChangeSortParam={handleSortChange}>
-      <GridMovieLayout heading={slug as string} movies={movies || []} />
+    <MovieDiscoverLayout>
+      <GridMovieLayout heading={slug as string} pages={discoverMovies || []} />
+      <Button ref={ref} className='mt-8' size='lg' color='green' fullWidth>
+        Load More
+      </Button>
     </MovieDiscoverLayout>
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = Object.values(MovieCategory).map((category: string) => ({
-    params: { slug: category },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  console.log('movie by category page');
-
+export const getServerSideProps = async (context: any) => {
   const queryClient = new QueryClient();
-  const slug = context.params?.slug;
 
+  const slug = context.params?.slug;
+  const { sort_by, with_original_language, with_genres } = context.query;
   const param = getParamsByType(slug as string);
 
-  await queryClient.prefetchQuery({
-    queryKey: [TYPE_QUERY_KEYS.GET_MOVIE_BY_CATEGORY, param],
-    queryFn: () => movieApi.getMovieByCategory(param),
+  const prefetchDiscoverMovie = queryClient.prefetchInfiniteQuery({
+    queryKey: [
+      TYPE_QUERY_KEYS.GET_DISCOVER_MOVIE,
+      {
+        sortBy: sort_by,
+        language: with_original_language,
+        genre: with_genres,
+      },
+    ],
+    queryFn: ({ pageParam }) =>
+      movieApi.getDiscoverMovie(
+        {
+          sortBy: sort_by,
+          language: with_original_language,
+          genre: with_genres,
+        },
+        pageParam
+      ),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage: IGetMovieResponse) => lastPage.page + 1,
   });
+
+  const prefetchMovieByCategory = queryClient.prefetchInfiniteQuery({
+    queryKey: [TYPE_QUERY_KEYS.GET_MOVIE_BY_CATEGORY, param],
+    queryFn: ({ pageParam }) => movieApi.getMovieByCategory(param, pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage: IGetMovieResponse) => lastPage.page + 1,
+  });
+
+  Promise.all([prefetchDiscoverMovie, prefetchMovieByCategory]);
 
   return {
     props: {
       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
-    revalidate: 30,
   };
 };
 
-export default MovieByCategoryPage;
+export default MovieDetailPage;

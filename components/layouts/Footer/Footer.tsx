@@ -1,6 +1,6 @@
 import { Typography } from '@material-tailwind/react';
 import Image from 'next/image';
-import logo from '../../../assets/images/luxe-black.png';
+import logo from '@/assets/images/luxe-black.png';
 import Socials from '@/components/Socials';
 
 const LINKS = [
