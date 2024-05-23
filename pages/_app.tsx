@@ -1,13 +1,13 @@
-import DefaultLayout from "@/components/layouts/DefaultLayout";
-import { AppPropsCustom } from "@/interfaces/common";
-import "@/styles/globals.css";
+import DefaultLayout from '@/components/layouts/DefaultLayout';
+import { AppPropsCustom } from '@/interfaces/common';
+import '@/styles/globals.css';
 import {
   HydrationBoundary,
   QueryClient,
   QueryClientProvider,
-} from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Toaster } from "react-hot-toast";
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient({
   defaultOptions: {

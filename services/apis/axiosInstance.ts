@@ -6,7 +6,7 @@ const axiosInstant = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
-    authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiZmQ1NmU4MjljZTI0NDNlODBkZWU1MGFkNTQyOWVmYyIsInN1YiI6IjY0NTNjMzQzYzA0NDI5MDE2NGViNjMwOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.yGNMRTPPfZf1UKDGueguGt16IzAiU_-C548_00knH3s`,
+    authorization: `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
   },
 });
 
