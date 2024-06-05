@@ -22,7 +22,7 @@ const SortMenu = () => {
     router.push(url.toString());
   };
   return (
-    <div className='px-4 pt-4 '>
+    <div className='px-4'>
       <Menu placement='bottom'>
         <MenuHandler>
           <Button variant='outlined' className='px-10 mr-4'>

@@ -82,7 +82,7 @@ export function Pagination({ page: currentPage, totalPage }: PaginationProps) {
         onClick={prev}
         disabled={active === 1}
       >
-        <FaArrowLeft strokeWidth={2} className='h-4 w-4' /> Previous
+        <FaArrowLeft strokeWidth={2} className='h-4 w-4' />
       </Button>
       <div className='flex items-center gap-2'>
         {pageNumbers.map((page) => (
@@ -103,7 +103,6 @@ export function Pagination({ page: currentPage, totalPage }: PaginationProps) {
         onClick={next}
         disabled={active === 5}
       >
-        Next
         <FaArrowRight strokeWidth={2} className='h-4 w-4' />
       </Button>
     </div>

@@ -11,29 +11,35 @@ import { Button } from '@material-tailwind/react';
 import { useEffect } from 'react';
 import { IGetMovieResponse } from '@/interfaces/movie';
 import { useInView } from 'react-intersection-observer';
+import SEOConfig from '@/utils/NextSeoConfig';
+import {
+  DEFAULT_SITE_DESCRIPTION,
+  DEFAULT_SITE_TITLE,
+} from '@/constants/common';
 
 const MovieDetailPage = () => {
   const { inView, ref } = useInView();
   const router = useRouter();
-  const { slug, sort_by, with_original_language, with_genres } = router.query;
+  const {
+    slug = '',
+    sort_by,
+    with_original_language,
+    with_genres,
+  } = router.query;
 
   const param = getParamsByType(slug as string);
+  const formatSlug =
+    slug?.toString().charAt(0).toUpperCase() +
+    slug?.toString().slice(1).replace('-', ' ');
+  const { data: moviesByCategory, fetchNextPage: fetchNextCategory } =
+    useGetMovieByCategory(param);
 
-  const {
-    data: moviesByCategory,
-    fetchNextPage: fetchNextCategory,
-    isFetchingNextPage: isFetchCateMovie,
-  } = useGetMovieByCategory(param);
-
-  const {
-    data: moviesDiscover,
-    fetchNextPage: fetchNextDiscover,
-    isFetchingNextPage: isFetchDiscoverMovie,
-  } = useGetDiscoverMovie({
-    sortBy: sort_by as string,
-    language: with_original_language as string,
-    genre: with_genres as string,
-  });
+  const { data: moviesDiscover, fetchNextPage: fetchNextDiscover } =
+    useGetDiscoverMovie({
+      sortBy: sort_by as string,
+      language: with_original_language as string,
+      genre: with_genres as string,
+    });
 
   useEffect(() => {
     if (inView) {
@@ -56,12 +62,21 @@ const MovieDetailPage = () => {
   else discoverMovies = moviesByCategory || [];
 
   return (
-    <MovieDiscoverLayout>
-      <GridMovieLayout heading={slug as string} pages={discoverMovies || []} />
-      <Button ref={ref} className='mt-8' size='lg' color='green' fullWidth>
-        Load More
-      </Button>
-    </MovieDiscoverLayout>
+    <>
+      <SEOConfig
+        title={`${formatSlug} Movie | ${DEFAULT_SITE_TITLE}`}
+        description={DEFAULT_SITE_DESCRIPTION}
+      />
+      <MovieDiscoverLayout>
+        <GridMovieLayout
+          heading={slug as string}
+          pages={discoverMovies || []}
+        />
+        <Button ref={ref} className='mt-8' size='lg' color='green' fullWidth>
+          Load More
+        </Button>
+      </MovieDiscoverLayout>
+    </>
   );
 };
 

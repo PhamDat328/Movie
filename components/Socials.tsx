@@ -7,8 +7,9 @@ const Socials = () => {
       <div className='flex gap-4 text-blue-gray-900 sm:justify-center'>
         <Typography
           as='a'
-          href='#'
+          href='https://www.facebook.com/'
           className='opacity-80 transition-opacity hover:opacity-100'
+          aria-label='Facebook'
         >
           <svg
             className='h-7 w-7'
@@ -25,8 +26,9 @@ const Socials = () => {
         </Typography>
         <Typography
           as='a'
-          href='#'
+          href='https://www.youtube.com/'
           className='opacity-80 transition-opacity hover:opacity-100'
+          aria-label='YouTube'
         >
           <svg
             className='h-7 w-7'
@@ -43,8 +45,9 @@ const Socials = () => {
         </Typography>
         <Typography
           as='a'
-          href='#'
+          href='https://twitter.com/'
           className='opacity-80 transition-opacity hover:opacity-100'
+          aria-label='Twitter'
         >
           <svg
             className='h-7 w-7'
@@ -57,8 +60,9 @@ const Socials = () => {
         </Typography>
         <Typography
           as='a'
-          href='#'
+          href='https://www.instagram.com/'
           className='opacity-80 transition-opacity hover:opacity-100'
+          aria-label='Instagram'
         >
           <svg
             className='h-7 w-7'
@@ -75,8 +79,9 @@ const Socials = () => {
         </Typography>
         <Typography
           as='a'
-          href='#'
+          href='https://www.linkedin.com/'
           className='opacity-80 transition-opacity hover:opacity-100'
+          aria-label='LinkedIn'
         >
           <svg
             className='h-7 w-7'

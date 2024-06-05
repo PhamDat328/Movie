@@ -11,8 +11,10 @@ type Props = {
 const GridMovieLayout = ({ pages, heading }: Props) => {
   const headingFormatted = heading?.replace('-', ' ');
   return (
-    <div className='max-w-[1280px] mx-auto'>
-      <h2 className='font-bold text-2xl mb-2 capitalize'>{headingFormatted}</h2>
+    <div className=''>
+      <h2 className='font-bold text-2xl mb-2 capitalize ml-6'>
+        {headingFormatted}
+      </h2>
       <div className='flex flex-wrap gap-4 justify-center'>
         {pages.map((page) =>
           page.results.map((movie) => (

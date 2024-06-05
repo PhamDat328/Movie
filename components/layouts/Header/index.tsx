@@ -4,7 +4,7 @@ import { UserInteract } from './components';
 
 const Header = () => {
   return (
-    <div className='flex  h-[60px] justify-between bg-[#f1dede] px-20'>
+    <div className='flex h-[60px] justify-between bg-[#f1dede] mx-auto sm:px-8 w-full px-2'>
       <Menus />
       <UserInteract />
     </div>

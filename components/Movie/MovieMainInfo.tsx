@@ -28,7 +28,7 @@ const MovieMainInfo = () => {
   const tabsData = TabsData;
 
   return (
-    <div className='w-[80%]'>
+    <div className='sm:col-span-9 md:col-span-8 col-span-12'>
       <h3 className='font-semibold text-2xl tracking-wide'>Top Billed Cast</h3>
 
       <div className='flex relative gap-4 mt-4 overflow-x-scroll '>
@@ -101,7 +101,7 @@ const MovieMainInfo = () => {
 
             <p className=' line-clamp-3'>{review.content}</p>
             {review.content.length > 500 ? (
-              <button className='text-[#cdae3d]'>Read more</button>
+              <button className='text-[#705f20]'>Read more</button>
             ) : null}
           </div>
         ))}
