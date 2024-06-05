@@ -39,7 +39,7 @@ const FilterBar = () => {
 
   return (
     <>
-      <Card className='w-full max-w-[20rem] fixed p-4 px-2 shadow-xl shadow-blue-gray-900/5 lg:block hidden'>
+      <Card className='w-full max-w-[20rem] p-4 px-2 shadow-xl shadow-blue-gray-900/5 lg:block hidden'>
         <div className='mb-2 p-4'>
           <Typography variant='h5' color='blue-gray'>
             Filter bar
