@@ -1,6 +1,10 @@
 import { Banner } from '@/components/Home';
 import ListMovieLayout from '@/components/layouts/ListMovieLayout';
 import {
+  DEFAULT_SITE_DESCRIPTION,
+  DEFAULT_SITE_TITLE,
+} from '@/constants/common';
+import {
   GET_NOW_PLAYING_MOVIES_PARAMS,
   GET_POPULAR_MOVIES_PARAMS,
   GET_TOP_RATED_MOVIES_PARAMS,
@@ -10,6 +14,7 @@ import { TYPE_QUERY_KEYS } from '@/constants/typeQueryKeys';
 import { useGetMovieByCategory } from '@/hooks/apis';
 import { IGetMovieResponse } from '@/interfaces/movie';
 import movieApi from '@/services/apis/movie';
+import SEOConfig from '@/utils/NextSeoConfig';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { GetServerSideProps, GetStaticProps } from 'next';
 
@@ -32,6 +37,10 @@ export default function Home() {
 
   return (
     <>
+      <SEOConfig
+        title={`Home Page | ${DEFAULT_SITE_TITLE}`}
+        description={DEFAULT_SITE_DESCRIPTION}
+      />
       <Banner />
       <ListMovieLayout heading='Popular Movies' movies={popularMovies || []} />
       <ListMovieLayout

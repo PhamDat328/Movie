@@ -22,22 +22,22 @@ const currentYear = new Date().getFullYear();
 
 export default function Footer() {
   return (
-    <footer className='relative w-full mt-20 border border-t-2 pt-10'>
-      <div className='mx-auto w-full max-w-7xl px-8'>
+    <footer className='relative w-full mt-12 border border-t-2 pt-10'>
+      <div className='mx-auto container max-w-7xl px-8'>
         <div className='grid grid-cols-1 justify-between gap-4 md:grid-cols-2'>
           <Image src={logo} alt='logo' width={180} height={180} />
           <div className='grid grid-cols-3 justify-between gap-4'>
             {LINKS.map(({ title, items }) => (
-              <ul key={title}>
+              <div key={title}>
                 <Typography
-                  variant='small'
-                  color='blue-gray'
-                  className='mb-3 font-medium opacity-40'
+                  variant='lead'
+                  color='black'
+                  className='mb-3 font-medium'
                 >
                   {title}
                 </Typography>
                 {items.map((link) => (
-                  <li key={link}>
+                  <p key={link}>
                     <Typography
                       as='a'
                       href='#'
@@ -46,9 +46,9 @@ export default function Footer() {
                     >
                       {link}
                     </Typography>
-                  </li>
+                  </p>
                 ))}
-              </ul>
+              </div>
             ))}
           </div>
         </div>

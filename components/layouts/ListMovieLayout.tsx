@@ -7,7 +7,7 @@ type PropsType = {
 };
 const ListMovieLayout = ({ movies, heading }: PropsType) => {
   return (
-    <div className='mt-10 max-w-[1280px] mx-auto'>
+    <div className='mt-10 xl:max-w-[1280px] lg:max-w-[984px] md:max-w-[728px] sm:max-w-[400px] max-w-[360px] mx-auto'>
       <h2 className='font-bold text-2xl mb-2'>{heading}</h2>
 
       {movies.map((page) => (

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const MovieCard = ({ movie }: { movie: IMovie }) => {
-  const { slug, poster_path: poster, vote_average: vote, title } = movie;
+  const { slug, poster_path: poster, vote_average: voteAverage, title } = movie;
   return (
     <Link href={`${RoutesConfig.movieDetail}/${slug}`} className='relative'>
       <div className='relative'>
@@ -21,9 +21,9 @@ const MovieCard = ({ movie }: { movie: IMovie }) => {
 
       <div
         className={`ring-2 ring-offset-1 absolute bottom-[28px] left-[10px] w-[35px] h-[35px] rounded-full bg-[#113b11] text-sm flex justify-center items-center text-white font-medium 
-        ${voteColor(vote || 0)}`}
+        ${voteAverage && voteAverage >= 7.5 ? 'ring-green-500' : voteAverage && voteAverage > 5 ? 'ring-[#f9cd3c]' : 'ring-red-500'}`}
       >
-        <span>{Math.floor((vote || 0) * 10) + '%'}</span>
+        <span>{Math.floor((voteAverage || 0) * 10) + '%'}</span>
       </div>
 
       <p className='font-semibold w-[150px] line-clamp-1 mt-4'>{title}</p>

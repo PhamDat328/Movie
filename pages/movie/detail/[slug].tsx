@@ -9,10 +9,15 @@ import MovieDetailHeader from '@/components/Movie/MovieDetailHeader';
 import MovieDetailInfo from '@/components/Movie/MovieDetailInfo';
 import useGetDetailMovie from '@/hooks/apis/movies/useGetDetailMovie';
 import MovieContext from '@/contexts/MovieContext';
+import SEOConfig from '@/utils/NextSeoConfig';
+import {
+  DEFAULT_SITE_DESCRIPTION,
+  DEFAULT_SITE_TITLE,
+} from '@/constants/common';
 
 const MovieDetailPage = () => {
   const router = useRouter();
-  const { slug } = router.query;
+  const { slug = '' } = router.query;
   const id = format.getIdFromSlug(slug?.toString() || '');
 
   const { data: movieDetail } = useGetDetailMovie(id || '');
@@ -24,6 +29,10 @@ const MovieDetailPage = () => {
 
   return (
     <>
+      <SEOConfig
+        title={`${movieDetail?.title} | ${DEFAULT_SITE_TITLE}`}
+        description={DEFAULT_SITE_DESCRIPTION}
+      />
       <MovieDetailHeader />
       <MovieDetailInfo />
     </>
