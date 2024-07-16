@@ -20,7 +20,7 @@ const DefaultLayout = ({ children }: { children: ReactNode }) => {
         <MenuProvider>
           <Header />
           <MovieProvider>
-            <main className=''>{children}</main>
+            <main className='mt-[60px]'>{children}</main>
           </MovieProvider>
         </MenuProvider>
         <br />

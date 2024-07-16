@@ -21,6 +21,9 @@ const queryString = {
 };
 
 const movieApi = {
+  getMovieDetail: (id: string): Promise<IMovieDetail> =>
+    axiosInstant.get(`${url.movie}/${id}?${queryString.append_to_response}`),
+
   getMovieByCategory: (
     params: IParamsMovieByCategory,
     pageParam: number
@@ -29,9 +32,6 @@ const movieApi = {
       `${url.movie}/${params.filterMovies}?page=${pageParam}`
     );
   },
-
-  getMovieDetail: (id: string): Promise<IMovieDetail> =>
-    axiosInstant.get(`${url.movie}/${id}?${queryString.append_to_response}`),
 
   getMovieBySearch: async (query: string): Promise<IGetMovieResponse> =>
     axiosInstant.get(`${url.searchMovie}?query=${query}`),
