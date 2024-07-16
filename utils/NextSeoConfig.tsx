@@ -2,8 +2,8 @@ import React from 'react';
 import { DefaultSeo, NextSeo } from 'next-seo';
 
 const DEFAULT = {
-  LOGO: 'https://cdn.pixabay.com/photo/2021/05/24/09/15/google-logo-6278331_960_720.png',
-  FAVICON: `https://cdn.pixabay.com/photo/2021/05/24/09/15/google-logo-6278331_960_720.png`,
+  LOGO: 'https://storage.cloud.google.com/pdat-bucket/logo-flower.svg',
+  FAVICON: `https://storage.cloud.google.com/pdat-bucket/logo-flower.svg`,
 };
 
 export interface SEOConfigProps {

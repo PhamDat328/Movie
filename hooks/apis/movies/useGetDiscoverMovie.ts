@@ -1,9 +1,9 @@
 import { TYPE_QUERY_KEYS } from '@/constants/typeQueryKeys';
 import { IFilterType, IGetMovieResponse, IMovie } from '@/interfaces/movie';
 import movieApi from '@/services/apis/movie';
-import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import format from '@/utils/format';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 
 const useGetDiscoverMovie = (param: IFilterType) => {
   const { data, ...rest } = useInfiniteQuery({
@@ -11,7 +11,6 @@ const useGetDiscoverMovie = (param: IFilterType) => {
     queryFn: ({ pageParam }) => movieApi.getDiscoverMovie(param, pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage: IGetMovieResponse) => lastPage.page + 1,
-    // select:
   });
 
   const flattedData = useMemo(() => {
